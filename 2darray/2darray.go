@@ -67,7 +67,7 @@ func bfs(matrix[][]int, row, col int, seen*[][]bool, values *[]int, queue *[]poi
 
 func traversalBFS(matrix *[][]int) []int {
   var result[]int
-  var queue[]int
+  var queue[]point
 	colCount := len((*matrix)[0])
 	rowCount := len(*matrix)
 	seen := make([][]bool, rowCount)
@@ -75,8 +75,44 @@ func traversalBFS(matrix *[][]int) []int {
 		seen[i] = make([]bool, colCount)
 	}
 
-
   bfs(*matrix, 0,0, &seen, &result, &queue)
+  return result
+}
+
+func traversalBFSCourse(matrix *[][]int) []int {
+  var result[]int
+  var queue[]point
+  var origin point
+  origin.row = 0
+  origin.col = 0
+  queue = append(queue, origin)
+
+	colCount := len((*matrix)[0])
+	rowCount := len(*matrix)
+	seen := make([][]bool, rowCount)
+	for i := 0; i < colCount; i++ {
+		seen[i] = make([]bool, colCount)
+	}
+
+  for (len(queue)>0){
+    currentPos := (queue)[0]
+    queue = queue[1:]
+    row := currentPos.row
+    col := currentPos.col
+	  if row < 0 || col < 0 || row >= len(*matrix) || col >= len((*matrix)[0]) || seen[row][col] == true {
+      continue		
+  	}
+    seen[row][col] = true
+    result = append(result, (*matrix)[row][col])
+
+  for i := 0; i < len(direction); i++ {
+    currentDir := direction[i]
+    var p point
+    p.col =  currentDir.col + col
+    p.row =  currentDir.row + row
+    queue = append(queue, p ) 
+   }
+  }
 
   return result
 }

@@ -75,7 +75,7 @@ func TestCase2(t *testing.T){
 
 
   var values []int
-  values = traversalBFS(&grid)
+  values = traversalBFSCourse(&grid)
 	fmt.Println(values)
 	if values[0] != 1 {
 		t.Errorf("must be %d", 1)
