@@ -58,10 +58,9 @@ func getRotten(grid [][]int) int {
 			}
 		}
 		if len(queue) == 0 {
-			for len(nextqueue) > 0 {
-				queue = append(queue, nextqueue[0])
-				nextqueue = nextqueue[1:]
-			}
+      queue = nextqueue
+      var newQueue []Point 
+      nextqueue = newQueue
 			count++
 		}
 	}
