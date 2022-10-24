@@ -6,6 +6,8 @@ type Point struct {
 }
 
 func getRotten(grid [][]int) int {
+  const fresh = 1
+  const rotten = 2
 	directions := make([][]int, 4)
 	directions[0] = make([]int, 2)
 	directions[1] = make([]int, 2)
@@ -23,13 +25,13 @@ func getRotten(grid [][]int) int {
 	var queue []Point
 	for i := 0; i < len(grid); i++ {
 		for j := 0; j < len(grid[0]); j++ {
-			if grid[i][j] == 2 {
+			if grid[i][j] == rotten {
 				var p Point
 				p.row = i
 				p.col = j
 				queue = append(queue, p)
 			}
-			if grid[i][j] == 1 {
+			if grid[i][j] == fresh {
 				enjoyable = true
 			}
 		}
@@ -46,11 +48,11 @@ func getRotten(grid [][]int) int {
 		for i := 0; i < len(directions); i++ {
 			chkrow := directions[i][0] + element.row
 			chkcol := directions[i][1] + element.col
-			if chkrow < 0 || chkrow >= len(grid) || chkcol < 0 || chkcol >= len(grid[0]) || grid[chkrow][chkcol] == 2 {
+			if chkrow < 0 || chkrow >= len(grid) || chkcol < 0 || chkcol >= len(grid[0]) || grid[chkrow][chkcol] == rotten {
 				continue
 			}
-			if grid[chkrow][chkcol] == 1 {
-				grid[chkrow][chkcol] = 2
+			if grid[chkrow][chkcol] == fresh {
+				grid[chkrow][chkcol] = rotten
 				var np Point
 				np.row = chkrow
 				np.col = chkcol
@@ -67,7 +69,7 @@ func getRotten(grid [][]int) int {
 
 	for i := 0; i < len(grid); i++ {
 		for j := 0; j < len(grid[0]); j++ {
-			if grid[i][j] == 1 {
+			if grid[i][j] == fresh {
 				return -1
 			}
 		}
